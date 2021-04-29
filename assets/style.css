@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--dark-color);
+}
+
+header {
+    text-align: center;
+}
+
+h1, h2, h3, h4 {
+
+}
+
+.hidden {
+    display: none;
+}
+
+.searchBar {
+    width: 80%;
+}
+/* style divs */
+
+#artDiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*
+#infoDiv {
+}
+
+#musicDiv {
+}
+
+.btn {
+
+} */ 
+
+/* Media query max-size 986px */
+
+
+/* Media query max-size 1200px */
+
+:root {
+    --light-color: white;
+    --beige: rgb(234, 239, 211);;
+    --light-blue: rgb(50, 132, 255);
+    --dark-blue: rgb(33, 0, 196);
+    --dark-grey: rgb(60, 55, 86);
+    --dark-color: black;
+}
