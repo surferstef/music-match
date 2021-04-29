@@ -8,69 +8,67 @@
     <title>Match Famous Art With Your Favorite Songs!</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Orelega+One&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/style.css" />
 </head>
 
 <body>
 
+<<<<<<< HEAD
+=======
     <!--TEST CHANGE HELLO THIS IS A TEST I AM A TEST TEST TEST-->
     <!--TEST CHANGE TWO HeLLO TS IS STEFAN's TEST-->
+>>>>>>> d712dd88477e32d6aaa0cbadf98423a83294b1c5
     <header>
-        <h1>
+       <!-- <h2>
             Music Match
-        </h1>
-        <h2>
-            Match Famous Art With Your Favorite Songs!
         </h2>
-    </header>
+    </header> -->
 
-    <!-- Art content goes here -->
-    <div id="artDiv" class="artDiv">
+    <main class="container">
 
-        <!--div to display art-->
-        <div id="displayArt">
+        <!-- Art content goes here -->
+        <div id="artDiv" class="artDiv">
             <!--Art from the Met API goes here, load random painting on page load-->
             <!--Replace with art user searches for or randomly rolls for-->
-        </div>
 
-        <!--Search for Art or Artist Here-->
-        <div id="searchForArt">
+            <!-- Click this button to display random painting -->
 
-            <div>
-                <!-- Click this button to display random painting -->
-                <button id="randomArtBtn" class="btn">Show me a random painting</button>
+            <div id="infoDiv">
+                <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
+
+                <!--Default image-->
+                <img src="./assets/images/default-img.png" alt="">
+
+                <h4>How It Works</h4>
+                <p>
+                    Music Match lets you set music to your favorite artwork from the Met!
+                </p>
             </div>
 
-            <div>
-                <!-- Search here for a specific painting -->
-                <input type="text" id="artSearchBar" class="searchBar" placeholder="Search by artist or painting">
-                <button class="btn hidden">Search</button>
-            </div>
-        </div>
-    </div>
+            <button id="randomArtBtn" class="btn">Show me a random painting</button>
 
-    <div id="infoDiv">
-        <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
-        <h3>How It Works</h3>
-        <p>
-            Match music from SoundCloud to your favorite paintings from the Met!
-        </p>
-    </div>
-
-    <!--Search for SoundCloud Song Here-->
-    <div id="musicDiv" class="hidden">
-
-        <div id="searchForSong">
-            <input type="text" id="musicSearchBar" class="searchBar" placeholder="Search by song title">
+            <!-- Search here for a specific painting -->
+            <input type="text" id="artSearchBar" class="searchBar" placeholder="Search by artist or painting">
             <button class="btn hidden">Search</button>
         </div>
 
-        <!--Display music the user searches for/selects.-->
-        <div id="displaySong">
-            <!--Append track to page here-->
+        <!--Search for SoundCloud Song Here-->
+        <div id="musicDiv" class="hidden">
+
+            <div id="searchForSong">
+                <input type="text" id="musicSearchBar" class="searchBar" placeholder="Search by song title">
+                <button class="btn hidden">Search</button>
+            </div>
+
+            <!--Display music the user searches for/selects.-->
+            <div id="displaySong">
+                <!--Append track to page here-->
+            </div>
+
         </div>
 
-    </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="assets/script.js"></script>
