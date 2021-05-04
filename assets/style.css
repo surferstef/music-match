@@ -15,8 +15,8 @@ header {
 }
 
 img {
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 80%;
+    max-width: 80%;
 }
 
 h1, h2, h3, h4 {
@@ -55,22 +55,15 @@ h1, h2, h3, h4 {
     margin-top: 20px;
 }
 
-
 #infoDiv {
     text-align: center;
     width: 80%;
 }
 
-/*
+/* /* */
 
-#musicDiv {
-}
 
-.btn {
-
-} */ 
-
-@media screen and (min-width: 640px) {
+@media screen and (max-width: 480px) {
 
 }
 
@@ -78,7 +71,7 @@ h1, h2, h3, h4 {
 /* Media query max-size 1200px */
 
 .btn:hover {
-    font-size: 20px;
+    font-size: 10px;
     transition: all .3s ease-in-out;
     cursor: pointer;
 }
