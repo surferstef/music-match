@@ -14,6 +14,11 @@ header {
     text-align: center;
 }
 
+img {
+    max-height: 80%;
+    max-width: 80%;
+}
+
 h1, h2, h3, h4 {
 
 }
@@ -24,7 +29,21 @@ h1, h2, h3, h4 {
 
 .searchBar {
     width: 80%;
+    border-radius: 5px;
+    text-align: center;
 }
+
+.btn {
+    background-color: var(--dark-grey);
+    color: var(--beige);
+    width: 80%;
+    height: 50%;
+    line-height: 1.5;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 /* style divs */
 
 #artDiv {
@@ -34,24 +53,26 @@ h1, h2, h3, h4 {
     justify-content: center;
     align-items: center;
 
-
-}
-
-/*
 #infoDiv {
+    text-align: center;
+    width: 80%;
 }
 
-#musicDiv {
+/* /* */
+
+
+@media screen and (max-width: 480px) {
+
 }
-
-.btn {
-
-} */ 
-
-/* Media query max-size 986px */
 
 
 /* Media query max-size 1200px */
+
+.btn:hover {
+    font-size: 10px;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
 
 :root {
     --light-color: white;
