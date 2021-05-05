@@ -14,68 +14,62 @@
 
 <body>
 
-    <header>
-        <!-- <h2>
-            Music Match
-        </h2>
-    </header> -->
+    <main class="container">
 
-        <main class="container">
+        <!-- Art content goes here -->
+        <div id="artDiv" class="artDiv center-align card-panel hoverable">
+        
+            <!--Default image-->
+            <div id="displayRandomArt">
+                <img id="defaultImg" src="./assets/images/default-img.png" alt="">
+                <img id="errorImg" class="hidden" src="./assets/images/error-img.jpg" alt="">
+            </div>
 
-            <!-- Art content goes here -->
-            <div id="artDiv" class="artDiv center-align">
-                <!--Art from the Met API goes here, load random painting on page load-->
-                <!--Replace with art user searches for or randomly rolls for-->
+            <div id="infoDiv">
+                <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
+                <h1>Art<span class="appName">Walkman</span></h1>
+                <p class="description">
+                    Discover new music while browsing world-famous
+                    artwork from New York City's Metropolitan Museum of Art!
+                </p>
 
-                <!--Default image-->
+                <!-- append description here -->
 
-                <div id="displayRandomArt">
-                    <img src="./assets/images/default-img.png" alt="">
-                </div>
+            </div>
 
-                <div id="infoDiv">
-                    <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
+            <!-- Click this button to display random painting -->
+            <button id="randomArtBtn" class="btn">Surprise Me!</button>
 
-                    <h4>How It Works</h4>
-                    <p>
-                        <span class="appName">ArtWalkman</span> lets you listen to your favorite music while browsing art from the world-famous
-                        Metropolitan Museum!
-                    </p>
+            <!-- Search here for a specific painting -->
+            <form id="artSearchBar">
+                <input type="search" id="artSearchTerm" class="searchBar center-align" placeholder="Search By Artist (e.g. 'Van Gogh')">
+                <button id="artSearchBtn" type="submit">Search By Artist (eg. 'Van Gogh')</button>
+            </form>
+        </div>
 
-                    <!-- append description here -->
-                </div>
+        <!--Search for SoundCloud Song Here-->
+        <div id="musicDiv" class="hidden center-align card-panel hoverable">
+            <p class="description">Add music!</p>
 
-                <!-- Click this button to display random painting -->
-                <button id="randomArtBtn" class="btn">Show me some art</button>
-
-                <!-- Search here for a specific painting -->
-                <form id="artSearchBar">
-                    <input type="search" class="searchBar center-align" placeholder="Search art">
-                    <button type="submit" class="btn hidden">Search</button>
+            <div id="searchForSong" class=" hidden">
+                <form id="musicSearchBar">
+                    <input type="search" id="musicSearchTerm" class="searchBar center-align" placeholder="Search By Music Genre (e.g. 'Jazz')">
+                    <button type="submit" id="musicSearchBtn"class="btn">"Search By Music Genre (eg. 'Jazz')"</button>
                 </form>
             </div>
 
-            <!--Search for SoundCloud Song Here-->
-            <div id="musicDiv" class="hidden">
-
-                <div id="searchForSong" class="hidden">
-                    <form id="musicSearchBar">
-                        <input type="search" class="searchBar" placeholder="Search by song title">
-                        <button type="submit" class="btn hidden">Search</button>
-                    </form>
-                </div>
-
-                <!--Display music the user searches for/selects.-->
-                <div id="displaySongDiv">
-                    <!--Append track to page here-->
-                </div>
+            <!--Display music the user searches for/selects.-->
+            <div id="displaySongDiv" class="hidden">
+                <!--Append track to page here-->
 
             </div>
 
-        </main>
+        </div>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="assets/script.js"></script>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="assets/script.js"></script>
 </body>
 
 </html>
