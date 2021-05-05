@@ -1,6 +1,7 @@
 // start here
 
 var artDiv = $("#artDiv");
+var displayRandomArt = $("#displayRandomArt");
 var infoDiv = $("#infoDiv");
 var musicDiv = $("#musicDiv");
 var searchForSongDiv = $("#searchForSong");
@@ -12,7 +13,7 @@ var searchMusicBtn = $("#searchMusicBtn");
 // functions to hide/unhide content divs.
 
 function hideInfo() {
-    $(infoDiv).addClass("hidden");
+    $(infoDiv).html("");
 };
 
 function unhideInfo() {
@@ -34,8 +35,10 @@ function displayMusic() {
 
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function(event) {
+    event.preventDefault();
     hideInfo();
     displayMusic();
+    getRandomArt();
     console.log("You clicked the button!");
     // clear previous art out of div.
 // hide info section.
@@ -74,3 +77,53 @@ $(musicSearchBar).on("submit", function(event) {
     //     $(artDiv) - CALL RANDOM ART AND APPEND TO PAGE.
     // });
 // }
+
+const api_url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
+
+var inputRandomNum = Math.floor(Math.random() * 750000) + 1;
+
+//Button Loop for Image Capture
+
+function getRandomArt() {
+
+    for (var i = 0; i < 1; i++) {
+    fetch(
+      api_url+inputRandomNum
+     )
+     .then(function(response) {
+         if (response.ok) {
+             response.json().then(function(data) {
+
+            if (!(data.primaryImageSmall.length)) {
+               alert("Couldn't Fetch an Image! Please Retry.")
+               inputRandomNum--;
+               fetch(api_url+inputRandomNum)
+               }
+
+             else {
+                 
+                console.log(data.primaryImageSmall);
+
+                //clear previous art
+                   $(displayRandomArt).html("");
+
+                var parsedImage = data.primaryImageSmall;
+                var metImg = $('<img>');
+                   $(metImg).attr('src', parsedImage);
+                   $(displayRandomArt).append(metImg);  
+
+                var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                var imgDescription = $("<p>").html(artInfo).addClass("description");
+                $(infoDiv).append(imgDescription);
+
+                inputRandomNum--;
+                  }
+              });
+         } else { 
+             alert("Couldn't Fetch an Image! Please Retry.")
+             console.log("Error: Issue fetching images from Met API.")
+             inputRandomNum++;
+           }
+        });    
+      }
+    }; 
