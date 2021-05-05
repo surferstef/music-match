@@ -8,6 +8,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-color);
+    /* background-color: var(--dark-grey); */
 }
 
 header {
@@ -15,12 +16,13 @@ header {
 }
 
 img {
-    max-height: 75%;
-    max-width: 75%;
+    max-height: 90%;
+    max-width: 90%;
 }
 
-h1, h2, h3, h4 {
-
+h1 {
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .hidden {
@@ -31,12 +33,15 @@ h1, h2, h3, h4 {
     font-size: 12px;
     line-height: 1.5;
     font-style: italic;
+    padding-bottom: 10px;
 }
 
 .searchBar {
     width: 80%;
     border-radius: 5px;
     text-align: center;
+    font-style: italic;
+    color: var(--dark-color)
 }
 
 .btn {
@@ -50,7 +55,8 @@ h1, h2, h3, h4 {
     border-radius: 5px;
 }
 
-/* style divs */
+/* .card-panel {
+} */
 
 #artDiv {
     display: flex;
@@ -58,7 +64,7 @@ h1, h2, h3, h4 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #infoDiv {
@@ -66,13 +72,16 @@ h1, h2, h3, h4 {
     width: 80%;
 }
 
+#artSearchBtn, #musicSearchBtn {
+    opacity: 0;
+    height: 1px;
+}
+
 .appName {
     font-weight: bold;
     font-size: 16px;
     font-style: italic;
 }
-/* /* */
-
 
 @media screen and (max-width: 480px) {
 
@@ -90,7 +99,7 @@ h1, h2, h3, h4 {
 :root {
     --light-color: white;
     --beige: rgb(234, 239, 211);;
-    --light-blue: rgb(50, 132, 255);
+    --light-blue: rgb(195, 217, 250);
     --dark-blue: rgb(33, 0, 196);
     --dark-grey: rgb(60, 55, 86);
     --dark-color: black;
