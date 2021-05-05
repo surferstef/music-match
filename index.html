@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match Famous Art With Your Favorite Songs!</title>
+    <title>ArtWalkMan - browse famous art to your favorite tunes!</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Orelega+One&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -23,29 +23,34 @@
         <main class="container">
 
             <!-- Art content goes here -->
-            <div id="artDiv" class="artDiv">
+            <div id="artDiv" class="artDiv center-align">
                 <!--Art from the Met API goes here, load random painting on page load-->
                 <!--Replace with art user searches for or randomly rolls for-->
 
                 <!--Default image-->
-                <img src="./assets/images/default-img.png" alt="">
+
+                <div id="displayRandomArt">
+                    <img src="./assets/images/default-img.png" alt="">
+                </div>
 
                 <div id="infoDiv">
                     <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
 
                     <h4>How It Works</h4>
                     <p>
-                        APP NAME lets you listen to your favorite music while browsing art from the world-famous
+                        <span class="appName">ArtWalkman</span> lets you listen to your favorite music while browsing art from the world-famous
                         Metropolitan Museum!
                     </p>
+
+                    <!-- append description here -->
                 </div>
 
                 <!-- Click this button to display random painting -->
-                <button id="randomArtBtn" class="btn">Show me a random painting</button>
+                <button id="randomArtBtn" class="btn">Show me some art</button>
 
                 <!-- Search here for a specific painting -->
                 <form id="artSearchBar">
-                    <input type="search" class="searchBar" placeholder="Search by artist or painting">
+                    <input type="search" class="searchBar center-align" placeholder="Search art">
                     <button type="submit" class="btn hidden">Search</button>
                 </form>
             </div>
