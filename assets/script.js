@@ -198,7 +198,7 @@ function getMusic() {
         event.preventDefault();
         var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
-        
+
         var music_query = musicSearch_api_url + userInput + "&type=cloudcast";
          fetch(music_query)  
             .then(function (response) {
@@ -249,9 +249,6 @@ function getMusic() {
                                 //  $("#changeMusicBtn").removeClass("hidden");
                                 //  $(musicSearchBar).addClass("hidden");
             })
-        
-
-
 
         // var music_query = music_api_url + userInput + "&type=cloudcast";
 
