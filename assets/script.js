@@ -71,6 +71,9 @@ function getSearchedArt() {
         event.preventDefault();
         hideInfo();
         var userInput = $(artSearchTerm).val().trim();
+        localStorage.setItem('Art Selection', userInput);
+        $(artSearchTerm).val(localStorage.getItem("artSearchBar"));
+
         fetch(
             api_search_url + userInput
         )
@@ -124,7 +127,12 @@ function getSearchedArt() {
     });
 };
 
+
+
 // API call to fetch random Art data and append to page.
+
+
+
 
 const api_url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
@@ -166,12 +174,43 @@ function getRandomArt() {
                             inputRandomNum--;
                         }
                     });
-                } else {
-                    displayError();
-                    console.log("Error: Issue fetching images from Met API.")
-                    inputRandomNum++;
-                }
-            });
+                } else { 
+                    //displayError();
+                    console.log("Error: Issue fetching images from Met API; Fetching from Array Instead.")
+                    var metObjArray = [400, 401,   
+                        402, 403, 404, 405,
+                        406, 407, 408, 409,
+                        550, 1000, 1001, 1002, 1003,
+                        1004, 1005, 1006, 1007,
+                        1008, 1009, 1010, 70000,
+                        70001, 70002, 70003, 70004,
+                        70005, 4000, 4001, 4002, 4003,
+                        400000, 400001, 400002, 400003,
+                        436952, 436951, 436945, 333813, 436961,
+                        436534, 436536];
+    
+                    var randomArray = metObjArray[Math.floor(Math.random() * metObjArray.length)];
+                    fetch(
+                        api_url + randomArray
+                    )
+                      .then(function (response) {
+                            response.json().then(function (data) {
+                            $(displayRandomArt).html("");
+
+                            var parsedImage = data.primaryImageSmall;
+                            var metImg = $('<img>');
+                            $(metImg).attr('src', parsedImage);
+                            $(displayRandomArt).append(metImg);
+
+                            var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                            var imgDescription = $("<p>").html(artInfo).addClass("description");
+                            $(infoDiv).append(imgDescription);
+                
+                })
+            })
+      
+        }
+      });
     }
 };
 
@@ -220,10 +259,9 @@ function getMusic() {
                           console.log(songEmbed);
 
                           $(displaySongDiv).html("");
-                         // $("#changeMusicBtn").removeClass("hidden");
                           $(displaySongDiv).append(songEmbed).append(button);
 
-
+                       
                         })
                     } else {"Error getting Widg"}
 
@@ -235,61 +273,8 @@ function getMusic() {
                     console.log("Error Fetching Music");
                 }
             
-
-                 
-                //     if (response.ok) {
-                //     console.log(data.url);
-                //     }
-                // else {
-                //     console.error(err);
-                // }
-                                 //reveal the iframe where the music will play.
-                                //  $("#displaySongEl").removeClass("hidden");
-                                //  $("#addMusicMsg").text("Currently listening to:");
-                                //  $("#changeMusicBtn").removeClass("hidden");
-                                //  $(musicSearchBar).addClass("hidden");
             })
-        
 
-
-
-        // var music_query = music_api_url + userInput + "&type=cloudcast";
-
-    //     fetch(music_query)
-
-    //         .then(response => {
-    //             console.log(response);
-
-    //             if (response.ok) {
-    //                 response.json().then(function (data) {
-
-    //                     if (!(data.url)) {
-    //                         console.log("No response from music API for this genre.")
-    //                         displayMusicError();
-    //                     }
-
-    //                     else {
-
-    //                         console.log(data.url)
-
-    //                         //clear previous music
-    //                         $("iframe").attr("src", "");
-
-    //                         var embedMusic = data.url + "embed-html/"
-    //                         $("iframe").attr("src", embedMusic);
-    //                     }
-    //                 });
-    //             } else {
-    //                 displayMusicError();
-    //                 console.log("Error fetching from MixCloud API.")
-    //             }
-    //         });
-    // })
-        // .catch(err => {
-        //     console.error(err);
-        //     console.log("No response from music API for this genre.")
-        //     displayMusicError();
-        // });
 });
 };
 
@@ -302,14 +287,6 @@ $("#changeMusicBtn").on("click", function (event) {
         $(musicSearchBar).removeClass("hidden");
 });
 
-// clear function to remove all data and reset to the title page. Still need to add "trash" section to html
-// function clear() {
-// $("#trash").on("click", function () {
-//     $(musicDiv).addClass("hidden");
-//     $(infoDiv).removeClass("hidden");
-//     $(artDiv) - CALL RANDOM ART AND APPEND TO PAGE.
-// });
-// }
 
 getSearchedArt()
 getMusic()
