@@ -227,7 +227,7 @@ function getMusic() {
                 }
             })
 
-    $("#addMusicMsg").removeClass("hidden");
+    $(addMusicMsg).removeClass("hidden");
     });
 };
 
