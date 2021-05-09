@@ -99,6 +99,18 @@ img:hover, img:active {
     /* only blow up when on-click for larger than mobile phone size. */
 }
 
+
+/* media query for tablet size */
+
+@media screen and (max-width: 768px) {
+    
+}
+
+img:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+    /* only blow up when on-click for larger than mobile phone size. */
+
 .hidden {
     display: none;
 }
