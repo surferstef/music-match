@@ -1,3 +1,4 @@
+
 // start here
 
 var artDiv = $("#artDiv");
@@ -13,6 +14,8 @@ var randomArtBtn = $("#randomArtBtn");
 var artSearchBar = $("#artSearchBar");
 var searchArtBtn = $("#searchArtBtn");
 var searchMusicBtn = $("#searchMusicBtn");
+var changeMusicBtn = $("#changeMusicBtn");
+var button = $("#button");
 
 // functions to hide/unhide content divs.
 
@@ -36,12 +39,18 @@ function displayError() {
     $(infoDiv).append(errorMsg);
 };
 
+function displayMusicError() {
+    $("#addMusicMsg").html("");
+    var errorMsg = $("<p>").text("Oops! Try a different music genre!").addClass("description");
+    $("#addMusicMsg").append(errorMsg);
+};
+
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function (event) {
     event.preventDefault();
     hideInfo();
-    displayMusic();
     getRandomArt();
+    displayMusic();  
     console.log("You clicked the button!");
 });
 
@@ -109,9 +118,9 @@ function getSearchedArt() {
                     })
                 } // else
             });
-            displayMusic();
+        displayMusic();
 
-    
+
     });
 };
 
@@ -175,7 +184,11 @@ $(musicSearchBar).on("submit", function (event) {
 
 // API call to fetch music data.
 
-const music_api_url = "https://api.mixcloud.com/search/?type=cloudcast&q=";
+const musicSearch_api_url = "https://api.mixcloud.com/search/?q=";
+
+
+//https://api.mixcloud.com/dj_tipstarr/the-beyonce-mix/embed-json
+//https://api.mixcloud.com/search/?q=beyonce&type=cloudcast
 
 function getMusic() {
 
@@ -183,24 +196,111 @@ function getMusic() {
 
     $(musicSearchBtn).on("click", function (event) {
         event.preventDefault();
-        var userInput = $(musicSearchTerm).val().trim();
+        var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
-    });
+        
+        var music_query = musicSearch_api_url + userInput + "&type=cloudcast";
+         fetch(music_query)  
+            .then(function (response) {
+               //console.log(response.json.parse);
+               if (response.ok) {
+                response.json().then(function (data) {
+                    // Only pulls the first response
+                    var responseKey = data.data[0].key;
+                    console.log(data.data[0].key);
+                    const musicWidget_api_url = "https://api.mixcloud.com"+responseKey+"embed-json/";
+                    console.log(musicWidget_api_url);
 
-    // var music_query = music_api_url + userInput;
+                    fetch(musicWidget_api_url)
+                    .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (data) {
+                            console.log(data);
+                          var songEmbed = (data["html"]);
+                          console.log(songEmbed);
 
-    // fetch(music_query)
+                          $(displaySongDiv).html("");
+                         // $("#changeMusicBtn").removeClass("hidden");
+                          $(displaySongDiv).append(songEmbed).append(button);
 
-    //     .then(response => {
-    //         console.log(response);
-    //     })
-    //     .catch(err => {
-    //         console.error(err);
-    //         alert("Please choose a different music genre.");
-    //     });
 
-    // append music to page.
+                        })
+                    } else {"Error getting Widg"}
+
+                })    
+        
+                })
+            }
+                else {
+                    console.log("Error Fetching Music");
+                }
+            
+
+                 
+                //     if (response.ok) {
+                //     console.log(data.url);
+                //     }
+                // else {
+                //     console.error(err);
+                // }
+                                 //reveal the iframe where the music will play.
+                                //  $("#displaySongEl").removeClass("hidden");
+                                //  $("#addMusicMsg").text("Currently listening to:");
+                                //  $("#changeMusicBtn").removeClass("hidden");
+                                //  $(musicSearchBar).addClass("hidden");
+            })
+        
+
+
+
+        // var music_query = music_api_url + userInput + "&type=cloudcast";
+
+    //     fetch(music_query)
+
+    //         .then(response => {
+    //             console.log(response);
+
+    //             if (response.ok) {
+    //                 response.json().then(function (data) {
+
+    //                     if (!(data.url)) {
+    //                         console.log("No response from music API for this genre.")
+    //                         displayMusicError();
+    //                     }
+
+    //                     else {
+
+    //                         console.log(data.url)
+
+    //                         //clear previous music
+    //                         $("iframe").attr("src", "");
+
+    //                         var embedMusic = data.url + "embed-html/"
+    //                         $("iframe").attr("src", embedMusic);
+    //                     }
+    //                 });
+    //             } else {
+    //                 displayMusicError();
+    //                 console.log("Error fetching from MixCloud API.")
+    //             }
+    //         });
+    // })
+        // .catch(err => {
+        //     console.error(err);
+        //     console.log("No response from music API for this genre.")
+        //     displayMusicError();
+        // });
+});
 };
+
+//click listener for change music button
+$("#changeMusicBtn").on("click", function (event) {
+    event.preventDefault();
+    $("#displaySongEl").addClass("hidden");
+        $("#addMusicMsg").text("Add music!");
+        $("#changeMusicBtn").addClass("hidden");
+        $(musicSearchBar).removeClass("hidden");
+});
 
 // clear function to remove all data and reset to the title page. Still need to add "trash" section to html
 // function clear() {

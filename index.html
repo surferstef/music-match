@@ -42,14 +42,14 @@
 
             <!-- Search here for a specific painting -->
             <form id="artSearchBar">
-                <input type="search" id="artSearchTerm" class="searchBar center-align" placeholder="Search By Artist (e.g. 'Van Gogh')">
-                <button id="artSearchBtn" type="submit">Search By Artist (eg. 'Van Gogh')</button>
+                <input type="search" id="artSearchTerm" class="searchBar center-align" placeholder="Search Artist or Culture">
+                <button id="artSearchBtn" type="submit">Search Artist or Culture</button>
             </form>
         </div>
 
         <!--Search for SoundCloud Song Here-->
         <div id="musicDiv" class="hidden center-align card-panel hoverable">
-            <p class="description">Add music!</p>
+            <p id="addMusicMsg">Add music!</p>
 
             <div id="searchForSong" class=" hidden">
                 <form id="musicSearchBar">
@@ -59,9 +59,10 @@
             </div>
 
             <!--Display music the user searches for/selects.-->
-            <div id="displaySongDiv" class="hidden">
+            <div id="displaySongDiv">
                 <!--Append track to page here-->
-
+            <!--  <iframe id="displaySongEl" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fjmanulim%2Fghostmic-special-lofi-hip-hopchillhop-mix%2F" frameborder="0" ></iframe>-->
+               <button id="changeMusicBtn" class="btn hidden">Change Music?</button>
             </div>
 
         </div>
@@ -69,7 +70,9 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="//widget.mixcloud.com/media/js/widgetApi.js" type="text/javascript"></script>
     <script src="assets/script.js"></script>
+
 </body>
 
 </html>

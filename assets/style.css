@@ -8,6 +8,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-color);
+    padding-top: 3em;
     /* background-color: var(--dark-grey); */
 }
 
@@ -16,8 +17,9 @@ header {
 }
 
 img {
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 80%;
+    max-width: 80%;
+    transition: transform .5s;
 }
 
 h1 {
@@ -37,11 +39,12 @@ h1 {
 }
 
 .searchBar {
-    width: 80%;
+    width: 100%;
     border-radius: 5px;
     text-align: center;
     font-style: italic;
-    color: var(--dark-color)
+    color: var(--dark-color);
+    margin: 10px 10px 0 10px;
 }
 
 .btn {
@@ -55,6 +58,11 @@ h1 {
     border-radius: 5px;
 }
 
+#artSearchBtn, #musicSearchBtn {
+    margin: 0;
+    padding: 0;
+}
+
 /* .card-panel {
 } */
 
@@ -64,15 +72,21 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
 #infoDiv {
     text-align: center;
     width: 80%;
 }
 
+#musicDiv p {
+    padding-bottom: 10px;
+}
+
 #artSearchBtn, #musicSearchBtn {
     opacity: 0;
     height: 1px;
+    width: 1px;
 }
 
 .appName {
@@ -81,17 +95,35 @@ h1 {
     font-style: italic;
 }
 
-@media screen and (max-width: 480px) {
-
-}
-
-
-/* Media query max-size 1200px */
-
 .btn:hover {
     font-size: 10px;
     transition: all .3s ease-in-out;
     cursor: pointer;
+}
+
+img:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+    /* only blow up when on-click for larger than mobile phone size. */
+}
+
+/* media query for tablet size */
+
+@media screen and (max-width: 768px) {
+
+}
+
+
+/* Media query for laptop size */
+
+@media screen and (max-width: 1200px) {
+
+}
+
+/* Media query for desktop size */
+
+@media screen and (max-width: 1600px) {
+
 }
 
 :root {
