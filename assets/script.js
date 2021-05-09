@@ -7,12 +7,13 @@ var errorImg = $("#errorImg");
 var infoDiv = $("#infoDiv");
 var appTitle = $("#appTitle");
 var musicDiv = $("#musicDiv");
-var searchForSongDiv = $("#searchForSong");
+var addMusicMsg = $("#addMusicMsg");
 var displaySongDiv = $("#displaySongDiv");
 var randomArtBtn = $("#randomArtBtn");
 var artSearchBar = $("#artSearchBar");
 var searchArtBtn = $("#searchArtBtn");
 var searchMusicBtn = $("#searchMusicBtn");
+var button = $("#button");
 
 // functions to hide/unhide content divs.
 
@@ -26,7 +27,9 @@ function displayInfo() {
 
 function displayMusic() {
     $(musicDiv).removeClass("hidden");
-    $(searchForSongDiv).removeClass("hidden");
+    $(musicSearchBar).removeClass("hidden");
+    $(musicDiv).addClass("card-panel hoverable");
+    $(addMusicMsg).text("Now add music!");
 };
 
 function displayError() {
@@ -36,18 +39,12 @@ function displayError() {
     $(infoDiv).append(errorMsg);
 };
 
-function displayMusicError() {
-    $("#addMusicMsg").html("");
-    var errorMsg = $("<p>").text("Oops! Try a different music genre!").addClass("description");
-    $("#addMusicMsg").append(errorMsg);
-};
-
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function (event) {
     event.preventDefault();
     hideInfo();
-    displayMusic();
     getRandomArt();
+    displayMusic();
     console.log("You clicked the button!");
 });
 
@@ -181,7 +178,7 @@ $(musicSearchBar).on("submit", function (event) {
 
 // API call to fetch music data.
 
-const music_api_url = "https://api.mixcloud.com/search/?q=";
+const musicSearch_api_url = "https://api.mixcloud.com/search/?q=";
 
 function getMusic() {
 
@@ -189,71 +186,50 @@ function getMusic() {
 
     $(musicSearchBtn).on("click", function (event) {
         event.preventDefault();
+        $(addMusicMsg).text("Search again to change the music!");
+
         var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
-                //reveal the iframe where the music will play.
-        $("#displaySongEl").removeClass("hidden");
-        $("#addMusicMsg").text("Currently listening to:");
-        $("#changeMusicBtn").removeClass("hidden");
-        $(musicSearchBar).addClass("hidden");
 
-        // var music_query = music_api_url + userInput + "&type=cloudcast";
+        var music_query = musicSearch_api_url + userInput + "&type=cloudcast";
+        fetch(music_query)
+            .then(function (response) {
+                //console.log(response.json.parse);
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        // Only pulls the first response
+                        var responseKey = data.data[0].key;
+                        console.log(data.data[0].key);
+                        const musicWidget_api_url = "https://api.mixcloud.com" + responseKey + "embed-json/";
+                        console.log(musicWidget_api_url);
 
-    //     fetch(music_query)
+                        fetch(musicWidget_api_url)
+                            .then(function (response) {
+                                if (response.ok) {
+                                    response.json().then(function (data) {
+                                        console.log(data);
+                                        var songEmbed = (data["html"]);
+                                        console.log(songEmbed);
 
-    //         .then(response => {
-    //             console.log(response);
+                                        $(displaySongDiv).html("");
+                                        $(displaySongDiv).append(songEmbed).append(button);
 
-    //             if (response.ok) {
-    //                 response.json().then(function (data) {
 
-    //                     if (!(data.url)) {
-    //                         console.log("No response from music API for this genre.")
-    //                         displayMusicError();
-    //                     }
+                                    })
+                                } else { "Error getting Widg" }
 
-    //                     else {
+                            })
 
-    //                         console.log(data.url)
+                    })
+                }
+                else {
+                    console.log("Error Fetching Music");
+                }
+            })
 
-    //                         //clear previous music
-    //                         $("iframe").attr("src", "");
-
-    //                         var embedMusic = data.url + "embed-html/"
-    //                         $("iframe").attr("src", embedMusic);
-    //                     }
-    //                 });
-    //             } else {
-    //                 displayMusicError();
-    //                 console.log("Error fetching from MixCloud API.")
-    //             }
-    //         });
-    // })
-        // .catch(err => {
-        //     console.error(err);
-        //     console.log("No response from music API for this genre.")
-        //     displayMusicError();
-        // });
-});
+    $("#addMusicMsg").removeClass("hidden");
+    });
 };
-
-//click listener for change music button
-$("#changeMusicBtn").on("click", function (event) {
-    event.preventDefault();
-    $("#displaySongEl").addClass("hidden");
-        $("#addMusicMsg").text("Add music!");
-        $("#changeMusicBtn").addClass("hidden");
-        $(musicSearchBar).removeClass("hidden");
-});
-
-// clear function to remove all data and reset to the title page. Still need to add "trash" section to html
-// function clear() {
-// $("#trash").on("click", function () {
-//     $(musicDiv).addClass("hidden");
-//     $(infoDiv).removeClass("hidden");
-//     $(artDiv) - CALL RANDOM ART AND APPEND TO PAGE.
-// });
-// }
 
 getSearchedArt()
 getMusic()
