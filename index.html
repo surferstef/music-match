@@ -14,11 +14,11 @@
 
 <body>
 
-    <main class="container">
+    <main id="container" class="center-align">
 
         <!-- Art content goes here -->
         <div id="artDiv" class="artDiv center-align card-panel hoverable">
-        
+
             <!--Default image-->
             <div id="displayRandomArt">
                 <img id="defaultImg" src="./assets/images/default-img.png" alt="">
@@ -29,40 +29,40 @@
                 <!--Starting slide goes here; hide with JavaScript upon user interaction.-->
                 <h1>Art<span class="appName">Walkman</span></h1>
                 <p class="description">
-                    Discover new music while browsing world-famous
-                    artwork from New York City's Metropolitan Museum of Art!
+                    Listen to your favorite music while you browse world-famous artwork from the Metropolitan Museum of Art!
                 </p>
 
                 <!-- append description here -->
 
             </div>
 
+
             <!-- Click this button to display random painting -->
             <button id="randomArtBtn" class="btn">Surprise Me!</button>
 
+
             <!-- Search here for a specific painting -->
             <form id="artSearchBar">
-                <input type="search" id="artSearchTerm" class="searchBar center-align" placeholder="Search Artist or Culture">
+                <input type="search" id="artSearchTerm" class="searchBar center-align"
+                    placeholder="Search Artist or Culture (e.g. 'Van Gogh' or 'French')">
                 <button id="artSearchBtn" type="submit">Search Artist or Culture</button>
             </form>
         </div>
 
         <!--Search for SoundCloud Song Here-->
-        <div id="musicDiv" class="hidden center-align card-panel hoverable">
-            <p id="addMusicMsg">Add music!</p>
+        <div id="musicDiv" class="hidden center-align">
+            <p id="addMusicMsg" class="description"></p>
 
-            <div id="searchForSong" class=" hidden">
-                <form id="musicSearchBar">
-                    <input type="search" id="musicSearchTerm" class="searchBar center-align" placeholder="Search By Music Genre (e.g. 'Jazz')">
-                    <button type="submit" id="musicSearchBtn"class="btn">"Search By Music Genre (eg. 'Jazz')"</button>
-                </form>
-            </div>
+            <form id="musicSearchBar" class="hidden">
+                <input type="search" id="musicSearchTerm" class="center-align"
+                    placeholder="Search By Artist or Genre (e.g. 'Beyonce' or 'Chillhop')">
+                <button type="submit" id="musicSearchBtn" class="btn">"Search By Music Genre (eg. 'Jazz')"</button>
+            </form>
 
             <!--Display music the user searches for/selects.-->
             <div id="displaySongDiv">
                 <!--Append track to page here-->
-            <!--  <iframe id="displaySongEl" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fjmanulim%2Fghostmic-special-lofi-hip-hopchillhop-mix%2F" frameborder="0" ></iframe>-->
-               <button id="changeMusicBtn" class="btn hidden">Change Music?</button>
+
             </div>
 
         </div>

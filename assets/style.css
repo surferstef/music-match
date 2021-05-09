@@ -9,7 +9,6 @@ body {
     font-family: 'Open Sans', sans-serif;
     color: var(--dark-color);
     padding-top: 3em;
-    /* background-color: var(--dark-grey); */
 }
 
 header {
@@ -27,10 +26,6 @@ h1 {
     font-size: 16px;
 }
 
-.hidden {
-    display: none;
-}
-
 .description {
     font-size: 12px;
     line-height: 1.5;
@@ -38,8 +33,8 @@ h1 {
     padding-bottom: 10px;
 }
 
-.searchBar {
-    width: 100%;
+#artSearchBar, #musicSearchBar {
+    width: 70%;
     border-radius: 5px;
     text-align: center;
     font-style: italic;
@@ -63,10 +58,7 @@ h1 {
     padding: 0;
 }
 
-/* .card-panel {
-} */
-
-#artDiv {
+#artDiv, #musicDiv {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -101,29 +93,133 @@ h1 {
     cursor: pointer;
 }
 
+img:hover, img:active {
+    transform: scale(1.5, 1.5);
+    cursor: pointer;
+    /* only blow up when on-click for larger than mobile phone size. */
+}
+
+
+/* media query for tablet size */
+
+@media screen and (max-width: 768px) {
+    
+}
+
 img:hover {
     transform: scale(1.5);
     cursor: pointer;
     /* only blow up when on-click for larger than mobile phone size. */
 }
 
+.hidden {
+    display: none;
+}
+
 /* media query for tablet size */
 
 @media screen and (max-width: 768px) {
+
+    img {
+        max-height: 50%;
+        max-width: 50%;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    h1, .appName {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 16px;
+        padding-bottom: 20px;
+    }
 
 }
 
 
 /* Media query for laptop size */
 
-@media screen and (max-width: 1200px) {
-
-}
-
-/* Media query for desktop size */
-
 @media screen and (max-width: 1600px) {
 
+    body {
+        padding-top: 3.5em;
+        background-image: url("../assets/images/bgImg.png");            
+        background-size: cover;
+        background-attachment: fixed;
+        height: 800px;
+    }
+
+    #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .card-panel {
+        background-color: rgb(255,255,255,0.95);
+    }
+
+    .btn {
+        width: 50%;
+    }
+
+    img {
+        max-height: 50%;
+        max-width: 50%;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    img:hover, img:active {
+        transform: scale(1.9, 1.9);
+    }
+
+    #defaultImg, #errorImg {
+        max-height: 30%;
+        max-width: 30%;
+        padding-top: 10px;
+        padding-bottom: 0;
+    }
+
+    #defaultImg:hover,  #defaultImg:active, #errorImg:hover, #errorImg:active {
+        transform: scale(1.5, 1.5);
+    }
+
+    h1, .appName {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 16px;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+
+    #musicDiv, #musicSearchBar {
+        display: flex;
+    }
+
+    #musicDiv {
+        transition: box-shadow .25s;
+        padding: 24px;
+        margin: .5rem 0 1rem 0;
+        border-radius: 2px;
+        background-color: rgb(255,255,255,0.95);
+        box-shadow: 0 8px 17px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        width: 80%;
+    }
+
+    #artDiv {
+        width: 80%;
+    }
+
+    #artSearchBar, #musicSearchBar {
+        margin: 3px;
+        width: 50%;
+    }
 }
 
 :root {

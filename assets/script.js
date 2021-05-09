@@ -1,4 +1,3 @@
-
 // start here
 
 var artDiv = $("#artDiv");
@@ -8,6 +7,7 @@ var errorImg = $("#errorImg");
 var infoDiv = $("#infoDiv");
 var appTitle = $("#appTitle");
 var musicDiv = $("#musicDiv");
+var addMusicMsg = $("#addMusicMsg");
 var searchForSongDiv = $("#searchForSong");
 var displaySongDiv = $("#displaySongDiv");
 var randomArtBtn = $("#randomArtBtn");
@@ -29,7 +29,9 @@ function displayInfo() {
 
 function displayMusic() {
     $(musicDiv).removeClass("hidden");
-    $(searchForSongDiv).removeClass("hidden");
+    $(musicSearchBar).removeClass("hidden");
+    $(musicDiv).addClass("card-panel hoverable");
+    $(addMusicMsg).text("Now add music!");
 };
 
 function displayError() {
@@ -44,6 +46,7 @@ function displayMusicError() {
     var errorMsg = $("<p>").text("Oops! Try a different music genre!").addClass("description");
     $("#addMusicMsg").append(errorMsg);
 };
+
 
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function (event) {
@@ -100,15 +103,16 @@ function getSearchedArt() {
                                         }
                                         else {
                                             console.log(data.primaryImageSmall);
-                                            //clear previous art
                                             $(displayRandomArt).html("");
-                                            var parsedImage = data.primaryImageSmall;
-                                            var metImg = $('<img>');
-                                            $(metImg).attr('src', parsedImage);
-                                            $(displayRandomArt).append(metImg);
-                                            var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
-                                            var imgDescription = $("<p>").html(artInfo).addClass("description");
-                                            $(infoDiv).append(imgDescription);
+
+                                        var parsedImage = data.primaryImageSmall;
+                                        var metImg = $('<img>');
+                                        $(metImg).attr('src', parsedImage);
+                                        $(displayRandomArt).append(metImg);
+
+                                        var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                                        var imgDescription = $("<p>").html(artInfo).addClass("description");
+                                        $(infoDiv).append(imgDescription);
                                             inputRandomNum--;
                                         }
                                     });
@@ -123,15 +127,10 @@ function getSearchedArt() {
             });
         displayMusic();
 
-
     });
 };
 
-
-
 // API call to fetch random Art data and append to page.
-
-
 
 
 const api_url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
@@ -154,12 +153,8 @@ function getRandomArt() {
                             inputRandomNum--;
                             fetch(api_url + inputRandomNum)
                         }
-
                         else {
-
                             console.log(data.primaryImageSmall);
-
-                            //clear previous art
                             $(displayRandomArt).html("");
 
                             var parsedImage = data.primaryImageSmall;
@@ -170,16 +165,14 @@ function getRandomArt() {
                             var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
                             var imgDescription = $("<p>").html(artInfo).addClass("description");
                             $(infoDiv).append(imgDescription);
-
                             inputRandomNum--;
                         }
                     });
                 } else { 
-                    //displayError();
+                    //If there are no images available in the API, randomize from this list of known objects that work
                     console.log("Error: Issue fetching images from Met API; Fetching from Array Instead.")
-                    var metObjArray = [400, 401,   
-                        402, 403, 404, 405,
-                        406, 407, 408, 409,
+                    var metObjArray = [200, 201, 202,
+                        203, 400, 401, 560, 561,
                         550, 1000, 1001, 1002, 1003,
                         1004, 1005, 1006, 1007,
                         1008, 1009, 1010, 70000,
@@ -195,17 +188,17 @@ function getRandomArt() {
                     )
                       .then(function (response) {
                             response.json().then(function (data) {
-                            $(displayRandomArt).html("");
+                                $(displayRandomArt).html("");
 
-                            var parsedImage = data.primaryImageSmall;
-                            var metImg = $('<img>');
-                            $(metImg).attr('src', parsedImage);
-                            $(displayRandomArt).append(metImg);
-
-                            var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
-                            var imgDescription = $("<p>").html(artInfo).addClass("description");
-                            $(infoDiv).append(imgDescription);
-                
+                                var parsedImage = data.primaryImageSmall;
+                                var metImg = $('<img>');
+                                $(metImg).attr('src', parsedImage);
+                                $(displayRandomArt).append(metImg);
+                            
+                                var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                                var imgDescription = $("<p>").html(artInfo).addClass("description");
+                                $(infoDiv).append(imgDescription);
+                              
                 })
             })
       
@@ -226,8 +219,6 @@ $(musicSearchBar).on("submit", function (event) {
 const musicSearch_api_url = "https://api.mixcloud.com/search/?q=";
 
 
-//https://api.mixcloud.com/dj_tipstarr/the-beyonce-mix/embed-json
-//https://api.mixcloud.com/search/?q=beyonce&type=cloudcast
 
 function getMusic() {
 
@@ -235,6 +226,7 @@ function getMusic() {
 
     $(musicSearchBtn).on("click", function (event) {
         event.preventDefault();
+        $(addMusicMsg).text("Search again to change the music!");
         var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
         
