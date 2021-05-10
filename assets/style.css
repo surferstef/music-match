@@ -99,6 +99,9 @@ img:hover, img:active {
     /* only blow up when on-click for larger than mobile phone size. */
 }
 
+.hidden {
+    display: none;
+}
 
 /* media query for tablet size */
 
@@ -111,14 +114,6 @@ img:hover {
     cursor: pointer;
     /* only blow up when on-click for larger than mobile phone size. */
 
-.hidden {
-    display: none;
-}
-
-/* media query for tablet size */
-
-@media screen and (max-width: 768px) {
-
     img {
         max-height: 50%;
         max-width: 50%;
@@ -129,6 +124,7 @@ img:hover {
     h1, .appName {
         font-size: 24px;
     }
+
 
     .description {
         font-size: 16px;

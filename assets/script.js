@@ -8,6 +8,7 @@ var infoDiv = $("#infoDiv");
 var appTitle = $("#appTitle");
 var musicDiv = $("#musicDiv");
 var addMusicMsg = $("#addMusicMsg");
+var searchForSongDiv = $("#searchForSong");
 var displaySongDiv = $("#displaySongDiv");
 var randomArtBtn = $("#randomArtBtn");
 var artSearchBar = $("#artSearchBar");
@@ -39,6 +40,12 @@ function displayError() {
     $(infoDiv).append(errorMsg);
 };
 
+function displayMusicError() {
+    $("#addMusicMsg").html("");
+    var errorMsg = $("<p>").text("Oops! Try a different music genre!").addClass("description");
+    $("#addMusicMsg").append(errorMsg);
+};
+
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function (event) {
     event.preventDefault();
@@ -65,6 +72,9 @@ function getSearchedArt() {
         event.preventDefault();
         hideInfo();
         var userInput = $(artSearchTerm).val().trim();
+        localStorage.setItem('Art Selection', userInput);
+        $(artSearchTerm).val(localStorage.getItem("artSearchBar"));
+
         fetch(
             api_search_url + userInput
         )
@@ -91,15 +101,16 @@ function getSearchedArt() {
                                         }
                                         else {
                                             console.log(data.primaryImageSmall);
-                                            //clear previous art
                                             $(displayRandomArt).html("");
-                                            var parsedImage = data.primaryImageSmall;
-                                            var metImg = $('<img>');
-                                            $(metImg).attr('src', parsedImage);
-                                            $(displayRandomArt).append(metImg);
-                                            var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
-                                            var imgDescription = $("<p>").html(artInfo).addClass("description");
-                                            $(infoDiv).append(imgDescription);
+
+                                        var parsedImage = data.primaryImageSmall;
+                                        var metImg = $('<img>');
+                                        $(metImg).attr('src', parsedImage);
+                                        $(displayRandomArt).append(metImg);
+
+                                        var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                                        var imgDescription = $("<p>").html(artInfo).addClass("description");
+                                        $(infoDiv).append(imgDescription);
                                             inputRandomNum--;
                                         }
                                     });
@@ -114,11 +125,11 @@ function getSearchedArt() {
             });
         displayMusic();
 
-
     });
 };
 
 // API call to fetch random Art data and append to page.
+
 
 const api_url = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
@@ -140,12 +151,8 @@ function getRandomArt() {
                             inputRandomNum--;
                             fetch(api_url + inputRandomNum)
                         }
-
                         else {
-
                             console.log(data.primaryImageSmall);
-
-                            //clear previous art
                             $(displayRandomArt).html("");
 
                             var parsedImage = data.primaryImageSmall;
@@ -156,16 +163,45 @@ function getRandomArt() {
                             var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
                             var imgDescription = $("<p>").html(artInfo).addClass("description");
                             $(infoDiv).append(imgDescription);
-
                             inputRandomNum--;
                         }
                     });
-                } else {
-                    displayError();
-                    console.log("Error: Issue fetching images from Met API.")
-                    inputRandomNum++;
-                }
-            });
+                } else { 
+                    //If there are no images available in the API, randomize from this list of known objects that work
+                    console.log("Error: Issue fetching images from Met API; Fetching from Array Instead.")
+                    var metObjArray = [200, 201, 202,
+                        203, 400, 401, 560, 561,
+                        550, 1000, 1001, 1002, 1003,
+                        1004, 1005, 1006, 1007,
+                        1008, 1009, 1010, 70000,
+                        70001, 70002, 70003, 70004,
+                        70005, 4000, 4001, 4002, 4003,
+                        400000, 400001, 400002, 400003,
+                        436952, 436951, 436945, 333813, 436961,
+                        436534, 436536];
+    
+                    var randomArray = metObjArray[Math.floor(Math.random() * metObjArray.length)];
+                    fetch(
+                        api_url + randomArray
+                    )
+                      .then(function (response) {
+                            response.json().then(function (data) {
+                                $(displayRandomArt).html("");
+
+                                var parsedImage = data.primaryImageSmall;
+                                var metImg = $('<img>');
+                                $(metImg).attr('src', parsedImage);
+                                $(displayRandomArt).append(metImg);
+                            
+                                var artInfo = data.title + ", " + data.artistDisplayName + ", " + data.objectDate;
+                                var imgDescription = $("<p>").html(artInfo).addClass("description");
+                                $(infoDiv).append(imgDescription);
+                              
+                })
+            })
+      
+        }
+      });
     }
 };
 
@@ -187,48 +223,51 @@ function getMusic() {
     $(musicSearchBtn).on("click", function (event) {
         event.preventDefault();
         $(addMusicMsg).text("Search again to change the music!");
-
+      
         var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
 
         var music_query = musicSearch_api_url + userInput + "&type=cloudcast";
         fetch(music_query)
             .then(function (response) {
-                //console.log(response.json.parse);
-                if (response.ok) {
-                    response.json().then(function (data) {
-                        // Only pulls the first response
-                        var responseKey = data.data[0].key;
-                        console.log(data.data[0].key);
-                        const musicWidget_api_url = "https://api.mixcloud.com" + responseKey + "embed-json/";
-                        console.log(musicWidget_api_url);
 
-                        fetch(musicWidget_api_url)
-                            .then(function (response) {
-                                if (response.ok) {
-                                    response.json().then(function (data) {
-                                        console.log(data);
-                                        var songEmbed = (data["html"]);
-                                        console.log(songEmbed);
+               //console.log(response.json.parse);
+               if (response.ok) {
+                response.json().then(function (data) {
+                    // Only pulls the first response
+                    var responseKey = data.data[0].key;
+                    console.log(data.data[0].key);
+                    const musicWidget_api_url = "https://api.mixcloud.com"+responseKey+"embed-json/";
+                    console.log(musicWidget_api_url);
 
-                                        $(displaySongDiv).html("");
-                                        $(displaySongDiv).append(songEmbed).append(button);
+                    fetch(musicWidget_api_url)
+                    .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (data) {
+                            console.log(data);
+                          var songEmbed = (data["html"]);
+                          console.log(songEmbed);
 
+                          $(displaySongDiv).html("");
+                          $(displaySongDiv).append(songEmbed).append(button);
 
-                                    })
-                                } else { "Error getting Widg" }
+                       
+                        })
+                    } else {"Error getting Widg"}
 
-                            })
-
-                    })
-                }
+                })    
+        
+                })
+            }
                 else {
                     console.log("Error Fetching Music");
                 }
+            
             })
 
-    $(addMusicMsg).removeClass("hidden");
-    });
+});
+  
+   $(addMusicMsg).removeClass("hidden");
 };
 
 getSearchedArt()
