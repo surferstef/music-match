@@ -1,7 +1,7 @@
 # ArtWalkman
 
 ## Purpose
-FILL ME IN 
+Listen to your favorite music while you browse world-famous artwork from the Metropolitan Museum of Art! A fun, chilled out app experience to inspire creativity, educate those curious about the world's art and culture, or to simply look at beautiful images while enjoying your favorite tunes.
 
 ## Built With
 * HTML
