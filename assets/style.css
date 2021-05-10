@@ -16,14 +16,14 @@ header {
 }
 
 img {
-    max-height: 80%;
-    max-width: 80%;
+    max-height: 70%;
+    max-width: 70%;
     transition: transform .5s;
 }
 
 h1 {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .description {
@@ -83,7 +83,7 @@ h1 {
 
 .appName {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
     font-style: italic;
 }
 
