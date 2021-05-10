@@ -14,7 +14,6 @@ var randomArtBtn = $("#randomArtBtn");
 var artSearchBar = $("#artSearchBar");
 var searchArtBtn = $("#searchArtBtn");
 var searchMusicBtn = $("#searchMusicBtn");
-var changeMusicBtn = $("#changeMusicBtn");
 var button = $("#button");
 
 // functions to hide/unhide content divs.
@@ -47,13 +46,12 @@ function displayMusicError() {
     $("#addMusicMsg").append(errorMsg);
 };
 
-
 //event listener for random art roll button click.
 $(randomArtBtn).on("click", function (event) {
     event.preventDefault();
     hideInfo();
     getRandomArt();
-    displayMusic();  
+    displayMusic();
     console.log("You clicked the button!");
 });
 
@@ -218,8 +216,6 @@ $(musicSearchBar).on("submit", function (event) {
 
 const musicSearch_api_url = "https://api.mixcloud.com/search/?q=";
 
-
-
 function getMusic() {
 
     var musicSearchTerm = $("#musicSearchTerm");
@@ -227,12 +223,14 @@ function getMusic() {
     $(musicSearchBtn).on("click", function (event) {
         event.preventDefault();
         $(addMusicMsg).text("Search again to change the music!");
+      
         var userInput = $(musicSearchTerm).val().trim().toLowerCase();
         console.log(userInput);
-        
+
         var music_query = musicSearch_api_url + userInput + "&type=cloudcast";
-         fetch(music_query)  
+        fetch(music_query)
             .then(function (response) {
+
                //console.log(response.json.parse);
                if (response.ok) {
                 response.json().then(function (data) {
@@ -268,17 +266,9 @@ function getMusic() {
             })
 
 });
+  
+   $(addMusicMsg).removeClass("hidden");
 };
-
-//click listener for change music button
-$("#changeMusicBtn").on("click", function (event) {
-    event.preventDefault();
-    $("#displaySongEl").addClass("hidden");
-        $("#addMusicMsg").text("Add music!");
-        $("#changeMusicBtn").addClass("hidden");
-        $(musicSearchBar).removeClass("hidden");
-});
-
 
 getSearchedArt()
 getMusic()

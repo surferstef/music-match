@@ -106,6 +106,13 @@ img:hover, img:active {
 /* media query for tablet size */
 
 @media screen and (max-width: 768px) {
+    
+}
+
+img:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+    /* only blow up when on-click for larger than mobile phone size. */
 
     img {
         max-height: 50%;
@@ -117,6 +124,7 @@ img:hover, img:active {
     h1, .appName {
         font-size: 24px;
     }
+
 
     .description {
         font-size: 16px;
