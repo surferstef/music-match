@@ -25,4 +25,4 @@ https://surferstef.github.io/music-match
 ## Contribution
 A team effort created by Stefan Hall, Adam Kennedy, Kiran "Winter" Kanda, and Alison Harden
 
-### @2021 Stefan Hall, Adam Kennedy, Kiran "Winter" Kanda, and Alison Harden 
+### @2021 Stefan Hall, Adam Kennedy, Kiran "Winter" Kanda, and Allison Harden 
